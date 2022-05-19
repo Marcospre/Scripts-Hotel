@@ -1,3 +1,4 @@
+
 /*Tablespaces*/
 
 create tablespace tablespace_administrador
@@ -16,11 +17,15 @@ temporary tablespace temp
 profile default
 quota 1M on tablespace_administrador;
 
+grant create session to admin_user;
+
 create user cliente_user identified by cliente
 default tablespace tablespace_cliente
 temporary tablespace temp
 profile default
 quota 1M on tablespace_cliente;
+
+grant create session to cliente_user;
 
 /*Profiles*/
 
@@ -50,9 +55,9 @@ create role cliente;
 /*Add privileges to roles*/
 
 grant all privileges to admin_hotel;
-grant select on reserva to cliente;
+grant select on "RESERVA" to cliente;
 
 /*Add role to user */
 
-grant role_admin_hotel to admin_user;
-grant role_cliente to cliente_user;
+grant admin_hotel to admin_user;
+grant cliente to cliente_user;
